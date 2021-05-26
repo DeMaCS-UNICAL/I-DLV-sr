@@ -1,0 +1,12 @@
+high :-alpha(V) in [15 sec],18 <= V.
+mid :- alpha(V) in [15 sec],12 <= V,V < 18.
+low :- alpha(V) in [15 sec],V <= 12.
+lfu :- high always in [15 sec].
+lru :- mid always in [15 sec].
+fifo :- low always in [15 sec],rtm50 in [15 sec].
+done :- lfu.
+done :- lru.
+done :- fifo.
+random :- not done.
+finish :- off in [1 sec],done.
+finish :- off in [1 sec],random.

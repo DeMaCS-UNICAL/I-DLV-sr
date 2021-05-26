@@ -1,0 +1,13 @@
+high(C) :- alpha(C,V) in [5 sec], 12 <= V.
+mid(C) :- alpha(C,V) in [5 sec], 12 <= V, V < 18.
+low(C) :- alpha(C,V) in [5 sec], V <= 12.
+lfu(C) :- high(C) always in [5 sec].
+lru(C) :- mid(C) always in [5 sec].
+fifo(C) :- low(C) always in [5 sec], rtm50(C) in [5 sec].
+done(C) :- lfu(C).
+done(C) :- lru(C).
+done(C) :- fifo(C).
+catalog(C) :- alpha(C,V).
+random(C) :- not done(C), catalog(C).
+finish(C) :- off(C) in [1 sec], done(C).
+finish(C) :- off(C) in [1 sec], random(C).

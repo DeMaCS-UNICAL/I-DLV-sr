@@ -1,0 +1,15 @@
+high :- value(V),alpha(V) in [5 sec],18 <= V.
+mid :- value(V),alpha(V) in [5 sec],12 <= V,V < 18.
+low :- value(V),alpha(V) in [5 sec],V <= 12.
+lfu :- high always in [5 sec].
+lru :- mid always in [5 sec].
+fifo :- low always in [5 sec],rtm50 in [5 sec].
+done :- lfu.
+done :- lru.
+done :- fifo.
+random :- not done.
+finish :- off in [1 sec],done.
+finish :- off in [1 sec],random.
+value(5).
+value(15).
+value(25).
