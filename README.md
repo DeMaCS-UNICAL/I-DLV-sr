@@ -1,6 +1,6 @@
 # I-DLV-sr
 
-I-DLV-s is a logic-based system for reasoning over data streams, which relies on a tight, fine-tuned interaction between the [Apache Flink](https://flink.apache.org/) Stream Processor and the [I<sup>2</sup>-DLV](https://github.com/DeMaCS-UNICAL/I-DLV/wiki/Incremental-IDLV) system.
+I-DLV-sr is a logic-based system for reasoning over data streams, which relies on a tight, fine-tuned interaction between the [Apache Flink](https://flink.apache.org/) Stream Processor and the [I<sup>2</sup>-DLV](https://github.com/DeMaCS-UNICAL/I-DLV/wiki/Incremental-IDLV) system.
 
 The architecture allows to take advantage from both the powerful distributed stream processing capabilities of Apache Flink and the incremental reasoning capabilities of I<sup>2</sup>-DLV, based on overgrounding techniques.
 
@@ -89,7 +89,7 @@ Besides streaming literals, I-DLV-sr also supports built-atoms and aggregate lit
 ### Input Stream Log
 
 When referring to time in a program (for example in windows), one can refer to different notions of time:
-* **processing time:** is to the system time of the machine that is evaluating the program
+* **processing time:** is to the system time of the machine that is evaluating the program;
 * **event time:** is the time at which each event occurred in the source.
 
 I-DLV-sr relies on the event time notion.
@@ -170,13 +170,13 @@ Examples:
 
 ### Visualize the Stream Dependency, Component and Macro-node graphs
 
-After exporting the graphs with ```--export-graphs```, on a Linux bash you can visualize them as follows. Graphviz is needed in this case.
+After exporting the graphs with ```--export-graphs```, on a Linux bash you can visualize them as follows. 
 
 1. execute the script **viewer.py**, reported in the **graphs** folder of this repository, as follows:
    ```./viewer.py <input.gv>```
-   where ```<input.gv>``` is the graph to display
+   where ```<input.gv>``` is the graph to display. Graphviz is needed in this case.
 
-2. run the command: ```dot -Tps <input.gv> -o <output.ps>```
+2. run the command: ```dot -Tps <input.gv> -o <output.ps>```.
 
 ## ICLP 2021 Submission
 
