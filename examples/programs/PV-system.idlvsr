@@ -1,0 +1,32 @@
+% background data
+% panel(P): elements in the grid
+% link(P1,P2): directly linked elements in the grid
+% energyThreshold(ET): threshold defining active elements
+
+panel(1).panel(2).panel(3).panel(4).
+link(cea,1). link(1,2). link(1,3). link(2,3). link(3,4).
+energyThreshold(10).
+
+
+
+% stream data
+% energyDelivered(P, W): the current power of each element P
+
+% define elements functioning regularly
+workingPanel(P) :- energyDelivered(P, W) at least 1 in [4 sec], energyThreshold(PT), W >= PT.
+
+% define reachable elements in the grid among functioning elements
+reachable(cea,P2) :- link(cea,P2), workingPanel(P2).
+reachable(P1,P3) :- reachable(P1,P2), link(P2,P3), workingPanel(P3).
+
+% check if there are unlinked elements, and log
+unlinked :- workingPanel(P), not reachable(cea,P).
+
+% check functioning, and log
+regularFunctioning :- unlinked at most 2 in [3 sec].
+
+% raise an alert if needed
+alert :- not regularFunctioning.
+
+% call maintenance in case of continuous malfunctions
+callMaintenance :- alert always in [5 sec].

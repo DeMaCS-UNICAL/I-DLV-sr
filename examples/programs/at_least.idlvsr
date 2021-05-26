@@ -1,0 +1,3 @@
+a(X) :- b(X) at least 2 in [2 sec].
+b(Y) :- a(X), Y = X+1, Y<3.
+c(X,Y):- a(X) in {1}, b(Y) in {1}, X<Y, d(X+1,Y+1).

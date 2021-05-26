@@ -1,0 +1,4 @@
+a(X) :- b(X) always in [2 sec].
+b(Y) :- a(X) in [1 sec], Y = X+1, c(Y).
+d(X):- b(X) at least 2 in [4 sec].
+e(X,Y):- a(X), b(Y).

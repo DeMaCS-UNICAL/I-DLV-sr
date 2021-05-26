@@ -1,0 +1,12 @@
+high :- not on, temp(X), X>3.
+turn_on :- not on, high always in [2 sec].
+
+prev_high(X) :- temp(X) in [3 sec], X>3, not temp(X).
+warning :- on always in [3 sec], temp(Y), prev_high(X), X<Y.
+
+#show high/0
+#show turn_on/0
+#show prev_high/1
+#show warning/0
+#show temp/1
+#show on/0

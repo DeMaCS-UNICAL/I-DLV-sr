@@ -1,0 +1,2 @@
+carPassing(C,N) :-car(C) count N in[20].
+tot(T) :-#sum{N,C: carPassing(C,N)}=T.

@@ -1,0 +1,3 @@
+c(X,Y) :- a(Y) at most 2 in [2 sec], b(X) at least 1 in [1 sec], Y=X+1.
+d(Y,X) :- c(X,Y) at least 1 in [1 sec].
+out(X,Y) :- c(X1,Y1), d(X2,Y2), X=Y1+Y2, Y=X1+X2.

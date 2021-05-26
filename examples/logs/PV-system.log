@@ -1,0 +1,4 @@
+2020-05-26T12:15:51 energyDelivered(1, 10); energyDelivered(2, 10); energyDelivered(3, 10); energyDelivered(4, 10);
+2020-05-26T12:15:56 energyDelivered(1, 2); energyDelivered(2, 10); energyDelivered(3, 10); energyDelivered(4, 10);
+2020-05-26T12:16:00 energyDelivered(1, 2); energyDelivered(2, 10); energyDelivered(3, 10); energyDelivered(4, 10);
+2020-05-26T12:16:03 energyDelivered(1, 2); energyDelivered(2, 10); energyDelivered(3, 10); energyDelivered(4, 10);

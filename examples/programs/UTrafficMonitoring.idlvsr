@@ -1,0 +1,5 @@
+irregular:-train_pass, train_pass count X in{1,2}, X>0.
+irregular:-not train_pass in [6].
+#temp numanomalies(X) :-irregular count X in [30].
+mildalert:-numanomalies(X), X>2, X<=5.
+severealert:-numanomalies(X), X>5.

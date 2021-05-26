@@ -1,0 +1,3 @@
+a(Y,X) :- b(Y) count X in [3 sec].
+d(Y) :- b(Y) count 2 in [3 sec].
+conta_b(B):- #count{Y: a(Y,X)} = B.

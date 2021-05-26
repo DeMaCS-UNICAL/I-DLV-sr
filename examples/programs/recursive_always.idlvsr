@@ -1,0 +1,3 @@
+a(X):-b(X) always in [3 sec], c(X-1).
+b(X):-c(X).
+c(X):-a(X).
