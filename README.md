@@ -70,7 +70,7 @@ Let *s* be a streaming atom of any type and *t<sup>e</sup>* be the time evaluati
 
 For instance, if *s = α **always in** {0, 1, 2, 3}* and *t<sup>e</sup>=10*, then *s* will be evaluated over the time points *{10, 9, 8, 7}*.
 
-If *D = {n ∈ N | 0 ≤ n ≤ w ∧ w > 0}* we indicate it simply as **[w]**; e.g., we write *α **always in** [3]* instead of *α **always in** {0, 1, 2, 3}*.
+If *D = {n ∈ N s.t. 0 ≤ n ≤ w ∧ w > 0}* we indicate it simply as **[w]**; e.g., we write *α **always in** [3]* instead of *α **always in** {0, 1, 2, 3}*.
 
 When *s* is a streaming atom, a streaming literal can be either the positive literal (*s*) or the negative literal (***not*** *s*); ***not*** denotes negation as failure.
 
