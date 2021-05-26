@@ -173,10 +173,9 @@ Examples:
 After exporting the graphs with ```--export-graphs```, on a Linux bash you can visualize them as follows. Graphviz is needed in this case.
 
 1. execute the script **viewer.py**, reported in the **graphs** folder of this repository, as follows:
+   ```./viewer.py <input.gv>```
+   where ```<input.gv>``` is the graph to display
 
-```./viewer.py <input.gv>```
-
-where ```<input.gv>``` is the graph to display.
 2. run the command: ```dot -Tps <input.gv> -o <output.ps>```
 
 ## ICLP 2021 Submission
