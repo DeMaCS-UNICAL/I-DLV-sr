@@ -137,14 +137,32 @@ Note that since the program does not define an explicit time unit for the stream
 * ```--port-number=<int>```set the source port number (default: 9000)
 * ```--program``` (required) path to the program file
 * ```--log``` path to the input log file
-* ```--semi-incremental-reasoning``` enable the semi-incremental reasoning i.e., an incremental I-DLV instance per worker is used (default: disabled)
 * ```--parallelism=<int>``` set the default parallelism of the execution environment, i.e., a default parallelism for all operators within the Apache Flink dataflow (default: the number of processors of the machine that runs the system)
 * ```--windows-unit=<sec|min|hrs>``` assign the specified timeunit to streaming atoms whose timeunit is not explicitly declared within the program
 * ```--complete-windows``` disable the evaluation of "always" atoms over partial windows, i.e., windows whose lower bound is less than the first event's timestamp
 * ```--export-graphs``` export the stream dependency, component and macro-node graphs (see "graphs" folder)
-* ```--print-extended-log``` print an extended version of the output log with additional information
-* ```--print-stats``` print processing and time statistics
+* ```--print-extended-log```print an extended version of the output log. 
+  It is possible to set the verbosity level:
+  * ```=0```: maximal verbosity (default)
+  * ```=1```: minimal verbosity
+* ```--print-reasoning-info```
+  print an extended version of the output log containing information about the reasoning as well as related statistics.
+  It is possible to set the verbosity level:
+    * ```=0```: maximal verbosity (default)
+    * ```=1```: minimal verbosity 
+* ```--print-operators-info```
+  print an extended version of the output log containing information about the evaluation of streaming atoms as well as related statistics.
+  It is possible to set the verbosity level:
+  * ```=0```: maximal verbosity (default)
+  * ```=1```: minimal verbosity
+* ```--print-rewriting``` print the rewritten program
+* ```--verbose``` set the logger to verbose mode i.e., enable all the printing options.
+  It is possible to set the verbosity level:
+  * ```=0```: maximal verbosity (default)
+  * ```=1```: minimal verbosity
 * ```--help``` print the help
+
+
 
 ## Additional resources
 
