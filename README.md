@@ -6,7 +6,7 @@ The architecture allows to take advantage from both the powerful distributed str
 
 ## Publications
 
-[<img src="https://cdn.iconscout.com/icon/free/png-256/quote-16-433627.png" alt title="Cite" width="13" height="13" />](https://dblp.org/rec/bibtex/conf/aiia/CalimeriFPZ16)
+[<img src="https://cdn.iconscout.com/icon/free/png-256/quote-16-433627.png" alt title="Cite" width="13" height="13" />](https://www.cambridge.org/core/journals/theory-and-practice-of-logic-programming/article/abs/idlvsr-a-stream-reasoning-system-based-on-idlv/705075E77B8780408FA2BE4FCEEB0100)
 [<img src="https://dblp.org/img/paper.dark.hollow.16x16.png" alt title="arXiv version" />](https://arxiv.org/abs/2108.02797) Francesco Calimeri, Marco Manna, Elena Mastria, Maria Concetta Morelli, Simona Perri, Jessica Zangari: _I-DLV-sr: A Stream Reasoning System based on I-DLV_, Theory and Practice of Logic Programming, 2021
 
 ## Download
