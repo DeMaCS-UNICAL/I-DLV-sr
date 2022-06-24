@@ -1,0 +1,12 @@
+%Q7: Notify me whenever a parking place near to my destination is full.
+closeParkingSpace(Pspace):- destination(Lat,Lon),parkingLocation(Pspace,Lat1,Lon1), &areClose(Lat,Lon,Lat1,Lon1;).
+isFull(Pspace):- closeParkingSpace(Pspace), parkingState(Pspace, TS,VC), 0=TS-VC.
+destination("56.157441","10.213014").
+ parkingLocation("NORREPORT","56.16184","10.21284").
+ parkingLocation("BUSGADEHUSET","56.15561","10.206").
+ parkingLocation("BRUUNS","56.14951","10.20596").
+ parkingLocation("SKOLEBAKKEN","56.15659","10.21353").
+ parkingLocation("SCANDCENTER","56.1527","10.197").
+ parkingLocation("SALLING","56.15441","10.20818").
+ parkingLocation("MAGASIN","56.15679","10.2049").
+ parkingLocation("KALKVAERKSVEJ","56.14952","10.21149").

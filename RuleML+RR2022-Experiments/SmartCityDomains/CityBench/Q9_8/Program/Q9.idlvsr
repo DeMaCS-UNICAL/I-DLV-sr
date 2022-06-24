@@ -1,0 +1,117 @@
+%Q9: What is the parking availability status nearby the city event with the
+% cheapest tickets price?
+cheapestPrice(Price):- #min{P:eventPrice(EventID,P)}=Price.
+cheapestEventLocation(EventID, Lat, Lon):- eventPrice(EventID,Price), cheapestPrice(Price), eventLocation(EventID, Lat, Lon).
+closeParkingSpace(E,Pspace):- cheapestEventLocation(E,Lat,Lon),parkingLocation(Pspace,Lat1,Lon1), &areClose(Lat,Lon,Lat1,Lon1;).
+availability(E,Pspace,A):- closeParkingSpace(E,Pspace), parkingState(Pspace, TS,VC), A=TS-VC.
+
+
+%BK
+ parkingLocation("NORREPORT","56.16184","10.21284").
+ parkingLocation("BUSGADEHUSET","56.15561","10.206").
+ parkingLocation("BRUUNS","56.14951","10.20596").
+ parkingLocation("SKOLEBAKKEN","56.15659","10.21353").
+ parkingLocation("SCANDCENTER","56.1527","10.197").
+ parkingLocation("SALLING","56.15441","10.20818").
+ parkingLocation("MAGASIN","56.15679","10.2049").
+ parkingLocation("KALKVAERKSVEJ","56.14952","10.21149").
+ eventLocation(46773,"56.1519158","10.19887"). eventPrice(46773,85).
+ eventLocation(46774,"56.1519158","10.19887"). eventPrice(46774,85).
+ eventLocation(48542,"56.1519158","10.19887"). eventPrice(48542,0).
+ eventLocation(42105,"56.1519158","10.19887"). eventPrice(42105,295).
+ eventLocation(42979,"56.1519158","10.19887"). eventPrice(42979,250).
+ eventLocation(46775,"56.1519158","10.19887"). eventPrice(46775,85).
+ eventLocation(46776,"56.1519158","10.19887"). eventPrice(46776,85).
+ eventLocation(47481,"56.1519158","10.19887"). eventPrice(47481,0).
+ eventLocation(51467,"56.1519158","10.19887"). eventPrice(51467,260).
+ eventLocation(46785,"56.1519158","10.19887"). eventPrice(46785,0).
+ eventLocation(45099,"56.1519158","10.19887"). eventPrice(45099,0).
+ eventLocation(44031,"56.1519158","10.19887"). eventPrice(44031,0).
+ eventLocation(45248,"56.1519158","10.19887"). eventPrice(45248,0).
+ eventLocation(47633,"56.1519158","10.19887"). eventPrice(47633,10).
+ eventLocation(47630,"56.1519158","10.19887"). eventPrice(47630,10).
+ eventLocation(48702,"56.1519158","10.19887"). eventPrice(48702,135).
+ eventLocation(47634,"56.1519158","10.19887"). eventPrice(47634,10).
+ eventLocation(48706,"56.1519158","10.19887"). eventPrice(48706,135).
+ eventLocation(41799,"56.1519158","10.19887"). eventPrice(41799,320).
+ eventLocation(47197,"56.1519158","10.19887"). eventPrice(47197,445).
+ eventLocation(47193,"56.1519158","10.19887"). eventPrice(47193,445).
+ eventLocation(47546,"56.1519158","10.19887"). eventPrice(47546,0).
+ eventLocation(44960,"56.1519158","10.19887"). eventPrice(44960,0).
+ eventLocation(47812,"56.1519158","10.19887"). eventPrice(47812,0).
+ eventLocation(48707,"56.1519158","10.19887"). eventPrice(48707,135).
+ eventLocation(47810,"56.1519158","10.19887"). eventPrice(47810,0).
+ eventLocation(47813,"56.1519158","10.19887"). eventPrice(47813,0).
+ eventLocation(47482,"56.1519158","10.19887"). eventPrice(47482,0).
+ eventLocation(47814,"56.1519158","10.19887"). eventPrice(47814,0).
+ eventLocation(47556,"56.1519158","10.19887"). eventPrice(47556,0).
+ eventLocation(37691,"56.1519158","10.19887"). eventPrice(37691,130).
+ eventLocation(48821,"56.1519158","10.19887"). eventPrice(48821,80).
+ eventLocation(47558,"56.1519158","10.19887"). eventPrice(47558,0).
+ eventLocation(47304,"56.1519158","10.19887"). eventPrice(47304,0).
+ eventLocation(47336,"56.1519158","10.19887"). eventPrice(47336,250).
+ eventLocation(47560,"56.1519158","10.19887"). eventPrice(47560,0).
+ eventLocation(47559,"56.1519158","10.19887"). eventPrice(47559,0).
+ eventLocation(43717,"56.1519158","10.19887"). eventPrice(43717,170).
+ eventLocation(45095,"56.1519158","10.19887"). eventPrice(45095,0).
+ eventLocation(51455,"56.1519158","10.19887"). eventPrice(51455,0).
+ eventLocation(47860,"56.1519158","10.19887"). eventPrice(47860,280).
+ eventLocation(47861,"56.1519158","10.19887"). eventPrice(47861,170).
+ eventLocation(47862,"56.1519158","10.19887"). eventPrice(47862,170).
+ eventLocation(47015,"56.1519158","10.19887"). eventPrice(47015,450).
+ eventLocation(46656,"56.1519158","10.19887"). eventPrice(46656,130).
+ eventLocation(47911,"56.1519158","10.19887"). eventPrice(47911,0).
+ eventLocation(44533,"56.1519158","10.19887"). eventPrice(44533,190).
+ eventLocation(45151,"56.1519158","10.19887"). eventPrice(45151,210).
+ eventLocation(47416,"56.1519158","10.19887"). eventPrice(47416,0).
+ eventLocation(47922,"56.1519158","10.19887"). eventPrice(47922,0).
+ eventLocation(47912,"56.1519158","10.19887"). eventPrice(47912,0).
+ eventLocation(47920,"56.1519158","10.19887"). eventPrice(47920,0).
+ eventLocation(47921,"56.1519158","10.19887"). eventPrice(47921,0).
+ eventLocation(48704,"56.1519158","10.19887"). eventPrice(48704,0).
+ eventLocation(47148,"56.1519158","10.19887"). eventPrice(47148,0).
+ eventLocation(47929,"56.1519158","10.19887"). eventPrice(47929,0).
+ eventLocation(41651,"56.1519158","10.19887"). eventPrice(41651,275).
+ eventLocation(47925,"56.1519158","10.19887"). eventPrice(47925,0).
+ eventLocation(47913,"56.1519158","10.19887"). eventPrice(47913,0).
+ eventLocation(48705,"56.1519158","10.19887"). eventPrice(48705,0).
+ eventLocation(51458,"56.1519158","10.19887"). eventPrice(51458,0).
+ eventLocation(43733,"56.1519158","10.19887"). eventPrice(43733,0).
+ eventLocation(51709,"56.1519158","10.19887"). eventPrice(51709,160).
+ eventLocation(46892,"56.1519158","10.19887"). eventPrice(46892,225).
+ eventLocation(46893,"56.1519158","10.19887"). eventPrice(46893,225).
+ eventLocation(47918,"56.1519158","10.19887"). eventPrice(47918,0).
+ eventLocation(41655,"56.1519158","10.19887"). eventPrice(41655,275).
+ eventLocation(41660,"56.1519158","10.19887"). eventPrice(41660,275).
+ eventLocation(47230,"56.1519158","10.19887"). eventPrice(47230,0).
+ eventLocation(47127,"56.1519158","10.19887"). eventPrice(47127,205).
+ eventLocation(49888,"56.1519158","10.19887"). eventPrice(49888,0).
+ eventLocation(49891,"56.1519158","10.19887"). eventPrice(49891,0).
+ eventLocation(43365,"56.1519158","10.19887"). eventPrice(43365,220).
+ eventLocation(45208,"56.1519158","10.19887"). eventPrice(45208,250).
+ eventLocation(44535,"56.1519158","10.19887"). eventPrice(44535,190).
+ eventLocation(47134,"56.1519158","10.19887"). eventPrice(47134,205).
+ eventLocation(47228,"56.1519158","10.19887"). eventPrice(47228,0).
+ eventLocation(47232,"56.1519158","10.19887"). eventPrice(47232,0).
+ eventLocation(43922,"56.1519158","10.19887"). eventPrice(43922,240).
+ eventLocation(44498,"56.1519158","10.19887"). eventPrice(44498,315).
+ eventLocation(47142,"56.1519158","10.19887"). eventPrice(47142,335).
+ eventLocation(47143,"56.1519158","10.19887"). eventPrice(47143,335).
+ eventLocation(47229,"56.1519158","10.19887"). eventPrice(47229,0).
+ eventLocation(48011,"56.1519158","10.19887"). eventPrice(48011,0).
+ eventLocation(47299,"56.1519158","10.19887"). eventPrice(47299,295).
+ eventLocation(47952,"56.1519158","10.19887"). eventPrice(47952,0).
+ eventLocation(48709,"56.1519158","10.19887"). eventPrice(48709,0).
+ eventLocation(46877,"56.1519158","10.19887"). eventPrice(46877,110).
+ eventLocation(47543,"56.1519158","10.19887"). eventPrice(47543,250).
+ eventLocation(45804,"56.1519158","10.19887"). eventPrice(45804,348).
+ eventLocation(47562,"56.1519158","10.19887"). eventPrice(47562,115).
+ eventLocation(47303,"56.1519158","10.19887"). eventPrice(47303,0).
+ eventLocation(47231,"56.1519158","10.19887"). eventPrice(47231,0).
+ eventLocation(48720,"56.1519158","10.19887"). eventPrice(48720,0).
+ eventLocation(47976,"56.1519158","10.19887"). eventPrice(47976,140).
+ eventLocation(37692,"56.1519158","10.19887"). eventPrice(37692,130).
+ eventLocation(47836,"56.1519158","10.19887"). eventPrice(47836,85).
+ eventLocation(51464,"56.1519158","10.19887"). eventPrice(51464,0).
+ eventLocation(47971,"56.1519158","10.19887"). eventPrice(47971,267).
+ eventLocation(41800,"56.1519158","10.19887"). eventPrice(41800,320).

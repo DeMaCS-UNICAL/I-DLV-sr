@@ -1,0 +1,36 @@
+poll_mesurementAt(MES,VAL,SEC,T):-pollution(MES,VAL,SEC), T=@now.
+poll_inc(MES,SEC) :- poll_mesurementAt(MES,VAL,SEC,T) in [9 min], poll_mesurementAt(MES,VAL1,SEC,T1) in [9 min],T1=T+1,VAL1>=VAL.
+
+poll_dec(MES,SEC) :- poll_mesurementAt(MES,VAL,SEC,T) in [9 min], poll_mesurementAt(MES,VAL1,SEC,T1) in [9 min],T1=T+1,VAL1<=VAL.
+
+traff_measurementAt(MES,VAL,SEC,T):- traffic(MES,VAL,SEC), T=@now.
+traff_inc(MES,SEC):-traff_measurementAt(MES,VAL,SEC,T) in [9 min],traff_measurementAt(MES,VAL1,SEC,T1) in [9 min], T1=T+1, VAL1>=VAL.
+
+traff_dec(MES,SEC):-traff_measurementAt(MES,VAL,SEC,T) in [9 min],traff_measurementAt(MES,VAL1,SEC,T1) in [9 min], T1=T+1, VAL1<=VAL.
+
+traff_low(MES,SEC):- traffic(MES,VAL,SEC) in [9 min], VAL>=10,VAL<=11.
+traff_high(MES,SEC):- traffic(MES,VAL,SEC) in [9 min], VAL>=250,VAL<=300.
+
+poll_low(MES,SEC):- pollution(MES,VAL,SEC) in [9 min], VAL>=0,VAL<=15.
+poll_high(MES,SEC):- pollution(MES,VAL,SEC) in [9 min], VAL>=214,VAL<=215.
+
+industrial_area(SEC):- poll_inc(MES,SEC) in [9 min], traff_dec(MES10,SEC) in [9 min], poll_high(MES1,SEC) in [9 min], traff_low(MES2,SEC) in [9 min], MES!=MES10.
+
+industrial_box(SEC) :- industrial_area(SEC) always in [3 min].
+
+highway_area(SEC) :- traff_inc(MES, SEC) in [9 min],
+        poll_inc(MES10,SEC) in [9 min],
+        poll_high(MES2,SEC) in [9 min],
+        traff_high(MES4,SEC) in [9 min], MES!= MES10.
+        
+highway_box(SEC) :- highway_area(SEC) always in [3 min].
+
+urban_area(SEC) :- traff_inc(MES, SEC) in [9 min],
+        poll_dec(MES10,SEC) in [9 min],
+        poll_low(MES2,SEC) in [9 min],
+        traff_low(MES4,SEC) in [9 min],
+        MES != MES10.
+
+urban_box(SEC) :- urban_area(SEC) always in [3 min].
+
+city(SEC) :- industrial_box(SEC), highway_box(SEC), urban_box(SEC).

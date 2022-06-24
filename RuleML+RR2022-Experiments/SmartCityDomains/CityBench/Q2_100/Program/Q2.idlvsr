@@ -1,0 +1,10 @@
+%Q2: What is the traffic congestion level and weather conditions on each road
+%    of my planned journey?
+
+
+my_congestionLevel(RoadID, CL):- plannedJourney(RoadID),vehicleCount(RoadID,VC), distanceInMeters(RoadID,DM), &float_division(VC,DM;CL).
+weatherCondition(RoadID, T, H, Ws) :- plannedJourney(RoadID), sensorOnRoad(RoadID,X), weather(X,T,H,Ws).
+%BK
+w_sensor(0).
+
+plannedJourney(158505). sensorOnRoad(158505,0).  distanceInMeters(158505,2065).

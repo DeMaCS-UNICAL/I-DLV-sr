@@ -1,0 +1,16 @@
+poll_mesurementAt(MES,VAL,SEC,T):-pollution(MES,VAL,SEC), T=@now.
+poll_inc(MES,SEC) :- poll_mesurementAt(MES,VAL,SEC,T) in [9 min], poll_mesurementAt(MES,VAL1,SEC,T1) in [9 min],T1=T+1,VAL1>=VAL.
+
+poll_dec(MES,SEC) :- poll_mesurementAt(MES,VAL,SEC,T) in [9 min], poll_mesurementAt(MES,VAL1,SEC,T1) in [9 min],T1=T+1,VAL1<=VAL.
+
+traff_measurementAt(MES,VAL,SEC,T):- traffic(MES,VAL,SEC), T=@now.
+traff_dec(MES,SEC):-traff_measurementAt(MES,VAL,SEC,T) in [9 min],traff_measurementAt(MES,VAL1,SEC,T1) in [9 min], T1=T+1, VAL1<=VAL.
+
+traff_low(MES,SEC):- traffic(MES,VAL,SEC) in [9 min], VAL>=10,VAL<=11.
+poll_low(MES,SEC):- pollution(MES,VAL,SEC) in [9 min], VAL>=0,VAL<=15.
+
+urban_area(SEC) :- traff_inc(MES, SEC) in [9 min],
+        poll_dec(MES10,SEC) in [9 min],
+        poll_low(MES2,SEC) in [9 min],
+        traff_low(MES4,SEC) in [9 min],
+        MES != MES10.

@@ -1,0 +1,4 @@
+a(X):- b(J) in [1 sec], b(Y), &sub(J,Y;X).
+a_abs(Z):- a(X), &my_abs(X;Z).
+w(X):- a(J) in [1 sec], b(Y), &sum(J,Y;X).
+p(J):- w(J) in [1 sec], b(Y).

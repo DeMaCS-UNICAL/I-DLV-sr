@@ -52,25 +52,29 @@ java -jar I-DLV-sr.jar --program=<path_to_the_program> --log=<path_to_the_input_
 ### Program
 I-DLV-sr accepts as input programs whose syntax extends [ASP-Core-2](https://arxiv.org/abs/1911.04326) with so-called streaming literals.
 
-An I-DLV-sr program contains rules of one out of the two forms:
+An I-DLV-sr program contains rules of one out of the three forms:
 1. α : - l<sub>1</sub>, ... , l<sub>b</sub>.
 2. **\#temp** α : - l<sub>1</sub>, . . . , l<sub>b</sub>.
+3. **\#trigger_frequency(*f*)** α : - l<sub>1</sub>, . . . , l<sub>b</sub>.
 
 where:
 * *α* is a predicate atom of the form *p(t<sub>1</sub>,...,t<sub>n</sub>)* as in [ASP-Core-2](https://arxiv.org/abs/1911.04326)
 * *l<sub>1</sub>, ... , l<sub>b</sub>* is a conjunction of streaming literals
+* ***f*** indicates the frequency according to which the rule has to be evaluated.
+  It can be expressed in terms of milliseconds, seconds, minutes
+  or hours by simply indicating `msec`, `sec`, `min` and `hrs` respectively.
 
-Let *α* be a predicate atom, *c ∈ N+* a constant, *t* be a term and *D={d<sub>1</sub>, ... , d<sub>m</sub>}* be a set of natural numbers.
+Let *α* be a predicate atom, *t* be a variable or a constant s.t. *t ∈ N+*, and *D={d<sub>1</sub>, ... , d<sub>m</sub>}* be a set of natural numbers.
 The I-DLV-sr language includes three types of streaming atoms:
-* α **at least** c **in** {d<sub>1</sub>, ... , d<sub>m</sub>}: 
-  intuitively, it holds if *α* is true *at least c* times within time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*;
+* α **at least** t **in** {d<sub>1</sub>, ... , d<sub>m</sub>}: 
+  intuitively, it holds if *α* is true *at least t* times within the time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*. If *t* is a variable, it must be _safe_ (see below);
 * α **always in** {d<sub>1</sub>, ... , d<sub>m</sub>}:
-  intuitively, it holds if *α* is *always* true within within time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*;
+  intuitively, it holds if *α* is *always* true within within the time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*;
 * α **count** t **in** {d<sub>1</sub>, ... , d<sub>m</sub>}: 
-  intuitively, it counts how many time *α* is true within time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*.
+  intuitively, it counts how many time *α* is true within the time points identified by *{d<sub>1</sub>, ... , d<sub>m</sub>}*.
   When *t* is a constant greater than *0*, it holds if *α* is true exactly *t* times.
   When *t* is a variable, it assigns to *t* the number of times *α* is true.
-  
+
 Let *s* be a streaming atom of any type and *t<sup>e</sup>* be the time evaluation time point, the set of natural numbers *D={d<sub>1</sub>, ... , d<sub>m</sub>}* defines how we have to look back starting from *t<sup>e</sup>* when evaluating *s*: *s* will be evaluated within the time points defined by {t<sup>e</sup>-d<sub>1</sub>, ... ,t<sup>e</sup>-d<sub>m</sub>}. 
 
 For instance, if *s = α **always in** {0, 1, 2, 3}* and *t<sup>e</sup>=10*, then *s* will be evaluated over the time points *{10, 9, 8, 7}*.
@@ -84,12 +88,21 @@ Moreover, the following shortcuts are admitted:
 - *α* in place of *α **at least** 1 **in** {0}* (this is called “degenerate” form of a streaming literal);
 - *α **at most** c **in** {d<sub>1</sub>, ... , d<sub>m</sub>}* in place of not *α **at least** c' **in** {d<sub>1</sub>, ... , d<sub>m</sub>}* where *c'=c+1*.
 
+<u>Note:</u> given a rule r, a variable is safe in r if it appears at least once in the positive body of r excluding
+the counting terms of other at least and at most operators.
+
 By default, the time unit is *second*. In order to change this setting, one can:
 1. use the option ```--window-unit=unit```: I-DLV-sr will globally set up the time unit to ```unit``` for all streaming atoms that do not have an explicit time unit.
 2. specify the time unit within windows: I-DLV-sr will locally set up the time unit for the streaming atom that contains it; this means that each window can have their own time unit if locally specified.
-Currently, the accepted time units are: ```sec```, ```min``` and ```hrs``` (resp., seconds, minutes and hours).
-
-Besides streaming literals, I-DLV-sr also supports built-atoms and aggregate literals as defined in [ASP-Core-2](https://arxiv.org/abs/1911.04326); currently, the only restriction is that aggregate elements cannot feature (non-degenerate) streaming literals.
+Currently, the accepted time units are: `msec`, ```sec```, ```min``` and ```hrs``` (resp., milliseconds, seconds, minutes and hours).
+#### Additional Constructs in Rule Bodies
+Besides streaming literals, I-DLV-sr also supports the following constructs in rule bodies:
+* _built-atoms_ and _aggregate literals_ as defined in [ASP-Core-2](https://arxiv.org/abs/1911.04326); 
+currently, the only restriction is that aggregate elements cannot feature (non-degenerate) streaming literals.
+* *external atoms* that can be used to call external sources of computation via Python3 (see the [I-DLV wiki](https://github.com/DeMaCS-UNICAL/I-DLV/wiki/External-Computations,-Interoperability-and-Linguistic-Extensions#python-external-atoms) for additional details)
+* the **@now** construct: a special term that, at each
+  evaluation time point t<sup>e</sup>, is automatically assigned with the value of t<sup>e</sup> either in numeric or string format. The former is used to export t<sup>e</sup> in _seconds_, _minutes_ or _hours_, the latter in the datetime format according to the pattern: “yyyy-MM-ddTHH:mm:ss.SSS”, where milliseconds (.SSS)
+  can be omitted if time points are expressed in larger time units. By default, the @now value is exported in second (see Section [Command-line Options](#command-line-options) for instructions on how to change the default behaviour)
 
 ### Input Stream Log
 
@@ -102,10 +115,33 @@ It requires that the input stream consists of a log chronologically ordered elem
 ``` 
 timestamp p_1; ... p_n;
 ```
-where ```timestamp``` is a date-time timestamp and ```p_1; ... p_n;``` is a list of ground predicate atoms (i.e., [ASP-Core-2](https://arxiv.org/abs/1911.04326) facts) true at that timestamp.
-Each timestamp of the input stream log represents a *time point*.
+where ```timestamp``` indicates a time point and ```p_1; ... p_n;``` is a list of ground predicate atoms (i.e., [ASP-Core-2](https://arxiv.org/abs/1911.04326) facts) true at that time point.
+```timestamp``` can have one of the following formats:
+* <u>Textual:</u> a _datetime_ string formatted according to the pattern: “yyyy-MM-ddTHH:mm:ss.SSS”, where milliseconds (.SSS) can be omitted.
+* <u>Numeric:</u> an integer _number_ indicating a timestamp in milliseconds, seconds, minutes or hours.
 
-### Example
+By default, the system accepts time points in **_seconds_** expressed using the first format. 
+See the section [Command-line Options](#command-line-options) below for instruction on how to change the time unit of the time points (option `--t-unit`) as well as their format (option `--t-format`). 
+
+<u>Note:</u> once the system is running, it accepts only timestamp having the same format, an execution error is raised otherwise.
+<!-- (Each timestamp of the input stream log represents a *time point*.)-->
+#### Handling Duplicate Timestamps
+The system can be set to collect fragmented inputs for a time point i.e., the source can send the events of a given time point using several consecutive messages; the only restriction is that each message must contain the timestamp of the relative time point.
+
+In order to enable the system with this capability, the option `--t-duplicate` must be used. 
+In this case, it will evaluate the input program at an evaluation time point t<sup>e</sup> only when it is certain that all the events of t<sup>e</sup> have been read.
+Specifically, the evaluation of t<sup>e</sup> is triggered when it has been received at least one event for the time point t<sup>e</sup>+i with t<sup>e</sup>+i>=t<sup>e</sup>, or if the source communicates the end of the messages having t<sup>e</sup> as timestamp by appending the special event `@end;` within the last message. 
+##### Example
+```
+2020-05-26T12:16:18 a; 
+2020-05-26T12:16:18 b; @end;
+2020-05-26T12:16:19 a;
+2020-05-26T12:16:19 c;
+2020-05-26T12:16:24 b;
+2020-05-26T12:16:24 @end;
+```
+In this example the time point `2020-05-26T12:16:18` is evaluated as soon as the message "`2020-05-26T12:16:18 b; @end;`" is received, while the time point `2020-05-26T12:16:19` is evaluated only after the message "`2020-05-26T12:16:24 b;`" is received.
+### A Modeling Example
 
 Let us imagine we want to build a monitoring system for the underground trains in the city of Milan. Given a station, passengers expect to see a train stopping every 3–6 minutes, during the rush hours.
 
@@ -142,10 +178,21 @@ Note that since the program does not define an explicit time unit for the stream
 * ```--port-number=<int>```set the source port number (default: 9000)
 * ```--program``` (required) path to the program file
 * ```--log``` path to the input log file
+* `--py-script=<../script/path.py[,../script2/path.py,...,../script_n/path.py]>` path to the python scripts containing the definition of the external atoms
 * ```--parallelism=<int>``` set the default parallelism of the execution environment, i.e., a default parallelism for all operators within the Apache Flink dataflow (default: the number of processors of the machine that runs the system)
 * ```--windows-unit=<sec|min|hrs>``` assign the specified timeunit to streaming atoms whose timeunit is not explicitly declared within the program
 * ```--complete-windows``` disable the evaluation of "always" atoms over partial windows, i.e., windows whose lower bound is less than the first event's timestamp
 * ```--export-graphs``` export the stream dependency, component and macro-node graphs (see "graphs" folder)
+
+Time Point Options:
+* `--t-format=<msec|sec|min|hrs>` set the time unit to be used to properly interpret the timestamps contained in the input stream. 
+By default, the system accepts timestamps in string format, i.e., a datetime following the pattern 'yyyy-mm-ddThh:mm:ss.SSS' where the part '.SSS' can be omitted. Use this option if instead time points are in numeric format.
+* `--t-unit=<msec|sec|min|hrs>` set the time unit of the system timeline, i.e., at which granularity the system have to reason (default: sec)
+* `--now-format=<sec|min|hrs|datetime>`
+  set the format to be used for assigning values to the @now term, (default: datetime, i.e., a string following the pattern 'yyyy-mm-ddThh:mm:ss.SSS' where the part '.SSS' is omitted when it is not required)
+* `--t-duplicate` allows to handle input streams having time points appearing multiple (consecutive) times; provided that they are chronologically ordered.
+
+Log Options:
 * ```--print-extended-log```print an extended version of the output log. 
   It is possible to set the verbosity level:
   * ```=0```: maximal verbosity (default)
@@ -200,6 +247,12 @@ After exporting the graphs with ```--export-graphs```, on a Linux bash you can v
    where ```<input.gv>``` is the graph to display. Graphviz is needed in this case.
 
 2. run the command: ```dot -Tps <input.gv> -o <output.ps>```.
+
+## RuleML+RR 2022 Submission
+
+The benchmarks used for the experimental analysis described in the paper are available in the folder: **RuleML+RR2022-Experiments** of this repository.
+For each performed test, the folder contains the related *Programs* and *Logs*.
+
 
 ## ICLP 2021 Submission
 

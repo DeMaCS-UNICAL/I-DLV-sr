@@ -1,0 +1,9 @@
+traff_low(MES,SEC) :- traffic(MES,VAL,SEC) always in [3 min], VAL <= 45.
+
+traff_high(MES,SEC) :- traffic(MES,VAL,SEC) always in [3 min], VAL >= 150.
+
+poll_low(MES,SEC) :- pollution(MES,VAL,SEC) always in [3 min], VAL <= 16.
+
+poll_high(MES,SEC) :- pollution(MES,VAL,SEC) always in [3 min], VAL >= 195.
+
+x(SEC1,SEC2) :- traff_low(MES1,SEC1), poll_low(MES2,SEC1), traff_high(MES1,SEC2), poll_high(MES2,SEC2), parking(MES,VAL,SEC1) in [3 min],SEC1!=SEC2.

@@ -1,0 +1,13 @@
+%Q12: Notify me whenever the congestion level on a given road goes beyond a
+%predefined threshold more than 3 times within the last 20 minutes.
+
+congestionLevel(RoadID, CL) :- roadOfInterest(RoadID),vehicleCount(RoadID,VC), distanceInMeters(RoadID,DM), &float_division(VC,DM;CL).
+beyondThreshold:- congestionLevel(_, CL), threshold(T), CL>T.
+%warning_beyondThreshold:- beyondThreshold count X in [20 min], X>3.
+warning_beyondThreshold:- beyondThreshold at least X in [20 min], minTimesTrigger(X).
+
+
+%BK
+threshold("0.01").
+minTimesTrigger(4).
+roadOfInterest(186979).  distanceInMeters(186979,844).

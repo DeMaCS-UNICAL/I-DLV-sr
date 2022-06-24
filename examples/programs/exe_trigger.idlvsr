@@ -1,0 +1,2 @@
+#trigger_frequency(4 sec) d(X,Y) :- b(X) in [1 sec], c(Y) in [3 sec].
+f(X,Y) :- d(X,_) in [10 sec], e(Y) in [10 sec].

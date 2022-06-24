@@ -1,0 +1,7 @@
+%Q11: Notify me whenever no observation from weather sensors have been
+%generated in the last 10 minutes.
+sensorsOK(SensorID):- weatherMeasurement(SensorID,_,_,_).
+sensorsNotOk(SensorID):- weatherSensor(SensorID), not sensorsOK(SensorID) in [10 min].
+
+%BK
+weatherSensor(0).

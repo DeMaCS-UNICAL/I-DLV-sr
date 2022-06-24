@@ -1,0 +1,3 @@
+c(1).
+a(X,@now) :- b(X) at most X in [2 sec], not c(X).
+c(X,T,T2) :- a(X,T) in [1 sec], a (X,T2) in [1 sec], T>T2.

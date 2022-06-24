@@ -1,0 +1,2 @@
+% Q4: Which cultural event happenig now is closest to my current location?
+closeCurrentEvent(E) :- userLocation(X1,Y1), &isClosest(X1,Y1,@now;E).

@@ -1,0 +1,36 @@
+city(3).
+city(4).
+city(6).
+town(8).
+town(10).
+town(1).
+town(2).
+town(5).
+town(7).
+town(9).
+	
+suburb(1, 3).
+suburb(2, 3).
+suburb(8, 4).
+suburb(9, 4).
+suburb(10, 3).
+suburb(7, 6).
+suburb(5, 6).
+	
+close(A, C, B) :- suburb(A, B), suburb(C, B) , A != C.
+highPollutionCo(SENS, SEC):-pollution(2, MES, SENS, SEC) in [4 min], MES>125.
+highPollutionPM(SENS, SEC) :- pollution(1, MES, SENS, SEC) in [4 min], MES>125.
+
+
+highPollutionCo_cont(SENS, SEC) :- highPollutionCo(SENS, SEC) always in [4 min].
+highPollutionPM_cont(SENS, SEC) :- highPollutionPM(SENS, SEC) always in [4 min].
+
+industrialSens(SENS, SEC) :- highPollutionCo_cont(SENS, SEC), highPollutionPM_cont(SENS, SEC).
+			
+industrialSec(SEC) :- industrialSens(SENS1, SEC) , industrialSens(SENS2, SEC), industrialSens(SENS3, SEC), industrialSens(SENS4, SEC), SENS1 != SENS2, SENS1!= SENS3, SENS1!= SENS4, SENS2!= SENS3, SENS2!= SENS4, SENS3!= SENS4.
+
+anomaly(CITY) :- industrialSec(SEC1) , industrialSec(SEC2) , close(SEC1, SEC2, CITY).
+
+industrialArea(SEC) :- industrialSec(SEC) , city(SEC).
+
+alert(SEC) :- industrialArea(SEC) , anomaly(SEC).
