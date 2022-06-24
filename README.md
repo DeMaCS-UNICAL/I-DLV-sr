@@ -11,7 +11,7 @@ The architecture allows to take advantage from both the powerful distributed str
 
 ## Download
 
-A beta release of I-DLV-sr for Linux x86-64 is available [here](https://github.com/DeMaCS-UNICAL/I-DLV-sr/releases/tag/v1.0).
+The latest release of I-DLV-sr for Linux x86-64 is available [here](https://github.com/DeMaCS-UNICAL/I-DLV-sr/releases/tag/v1.1.0).
 
 Requirements include:
 * Java 11
@@ -95,6 +95,8 @@ By default, the time unit is *second*. In order to change this setting, one can:
 1. use the option ```--window-unit=unit```: I-DLV-sr will globally set up the time unit to ```unit``` for all streaming atoms that do not have an explicit time unit.
 2. specify the time unit within windows: I-DLV-sr will locally set up the time unit for the streaming atom that contains it; this means that each window can have their own time unit if locally specified.
 Currently, the accepted time units are: `msec`, ```sec```, ```min``` and ```hrs``` (resp., milliseconds, seconds, minutes and hours).
+
+
 #### Additional Constructs in Rule Bodies
 Besides streaming literals, I-DLV-sr also supports the following constructs in rule bodies:
 * _built-atoms_ and _aggregate literals_ as defined in [ASP-Core-2](https://arxiv.org/abs/1911.04326); 
