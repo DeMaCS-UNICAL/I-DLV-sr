@@ -96,15 +96,11 @@ By default, the time unit is *second*. In order to change this setting, one can:
 2. specify the time unit within windows: I-DLV-sr will locally set up the time unit for the streaming atom that contains it; this means that each window can have their own time unit if locally specified.
 Currently, the accepted time units are: `msec`, ```sec```, ```min``` and ```hrs``` (resp., milliseconds, seconds, minutes and hours).
 
-
-#### Additional Constructs in Rule Bodies
-Besides streaming literals, I-DLV-sr also supports the following constructs in rule bodies:
+I-DLV-sr also supports the following linguistic constructs in rule bodies:
 * _built-atoms_ and _aggregate literals_ as defined in [ASP-Core-2](https://arxiv.org/abs/1911.04326); 
 currently, the only restriction is that aggregate elements cannot feature (non-degenerate) streaming literals.
 * *external atoms* that can be used to call external sources of computation via Python3 (see the [I-DLV wiki](https://github.com/DeMaCS-UNICAL/I-DLV/wiki/External-Computations,-Interoperability-and-Linguistic-Extensions#python-external-atoms) for additional details)
-* the **@now** construct: a special term that, at each
-  evaluation time point t<sup>e</sup>, is automatically assigned with the value of t<sup>e</sup> either in numeric or string format. The former is used to export t<sup>e</sup> in _seconds_, _minutes_ or _hours_, the latter in the datetime format according to the pattern: “yyyy-MM-ddTHH:mm:ss.SSS”, where milliseconds (.SSS)
-  can be omitted if time points are expressed in larger time units. By default, the @now value is exported in second (see Section [Command-line Options](#command-line-options) for instructions on how to change the default behaviour)
+* the **@now** term: a special term that, at each evaluation time point t<sup>e</sup>, is automatically assigned with the value of t<sup>e</sup> either in numeric or string format. The former is used to export t<sup>e</sup> in _seconds_, _minutes_ or _hours_, the latter in the datetime format according to the pattern: “yyyy-MM-ddTHH:mm:ss.SSS”, where milliseconds (.SSS) can be omitted if time points are expressed in larger time units. By default, the @now value is in second (see Section [Command-line Options](#command-line-options) for instructions on how to change the default behaviour).
 
 ### Input Stream Log
 
