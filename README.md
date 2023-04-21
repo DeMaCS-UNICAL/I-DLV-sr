@@ -15,6 +15,7 @@ The latest release of I-DLV-sr for Linux x86-64 is available [here](https://gith
 
 Requirements include:
 * Java 11
+* Python 3.8
 * Graphviz (optional)
 
 ## Usage
