@@ -32,7 +32,7 @@ In the socket-based mode, one should:
    For instance, one can run netcat from a command line to start a socket based-service: ```nc -l <ip_address> <port_number>```.
 2. Start up I-DLV-sr as follows:
 ```
-java -jar I-DLV-sr.jar --program=<path_to_the_program> --hostname=<ip_address> --port=<port_number>
+java -jar I-DLV-sr.jar --program=<path_to_the_program> --hostname=<ip_address> --port-number=<port_number>
 ```
 The port number and the IP address can change at will.
 
